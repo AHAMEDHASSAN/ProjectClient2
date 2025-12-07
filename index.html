@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Premium luxury flooring services - Professional installation and exceptional quality">
+    <title>Premium Luxury Flooring Services | Book Free Consultation</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <!-- ==================== HEADER ==================== -->
+    <header class="header" id="header">
+        <nav class="nav container">
+            <!-- Logo -->
+            <a href="#hero" class="nav__logo">
+                <img src="image/Logo.png" alt="Logo" class="nav__logo-img">
+            </a>
+
+            <div class="nav__controls">
+                <!-- Phone Number -->
+                <a href="tel:+15551234567" class="nav__phone">
+                    <i class="fas fa-phone-alt"></i>
+                    <span>+1 (555) 123-4567</span>
+                </a>
+
+                <!-- Theme Toggle -->
+                <button class="theme-toggle" id="theme-button" aria-label="Toggle theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ==================== HERO SECTION ==================== -->
+    <section class="hero section" id="hero">
+        <div class="hero__container container">
+            <div class="hero__main-row">
+                <!-- Left Column: Video & Stats -->
+                <div class="hero__video-column">
+                    <p class="video-caption video-caption--top">
+                        Meet <span class="text-highlight">Peterson</span> — The Person Who Makes Sure Every Floor Is
+                        Installed <span class="text-highlight">Perfectly</span>.
+                    </p>
+                    <div class="video-wrapper">
+                        <!-- Custom Poster Overlay -->
+                        <div class="video-poster-overlay" id="videoPoster">
+                            <img src="image/thumbnail.png" alt="Video Cover">
+                        </div>
+                        <video id="heroVideo" src="image/WhatsApp Video 2025-12-07 at 2.28.41 PM.mp4"
+                            class="hero__image" autoplay playsinline loop muted controls>
+                        </video>
+                    </div>
+                    <p class="video-caption video-caption--bottom">
+                        A quick message from Peterson about how we help homeowners get beautiful, durable floors.
+                    </p>
+
+                    <!-- Statistics Section -->
+                    <div class="hero__stats">
+                        <div class="stat-item">
+                            <span class="stat-number">500+</span>
+                            <span class="stat-label">Projects Completed</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">15+</span>
+                            <span class="stat-label">Years Experience</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">100%</span>
+                            <span class="stat-label">Satisfaction Rate</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Right Column: Form -->
+                <div class="hero__form-wrapper">
+                    <div class="form-card">
+                        <div class="form-header">
+                            <h2 class="form-title">Book a Free In-Home Design Consultation</h2>
+                            <p class="form-subtitle">No pressure. No sales push. Just honest guidance & a clear
+                                quote.
+                            </p>
+                        </div>
+
+                        <form class="contact-form" id="contactForm">
+                            <!-- Full Name -->
+                            <div class="form-group-name">
+                                <label class="form-label">Full Name <span class="required">*</span></label>
+                                <div class="name-inputs">
+                                    <div class="input-wrapper">
+                                        <input type="text" class="form-input" required id="firstName">
+                                        <span class="sub-label">First</span>
+                                    </div>
+                                    <div class="input-wrapper">
+                                        <input type="text" class="form-input" required id="lastName">
+                                        <span class="sub-label">Last</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Contact Info (Email & Phone) -->
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Email Address <span class="required">*</span></label>
+                                    <input type="email" class="form-input" required id="email">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Phone Number <span class="required">*</span></label>
+                                    <input type="tel" class="form-input" required id="phone">
+                                </div>
+                            </div>
+
+                            <!-- Area to Cover -->
+                            <div class="form-group">
+                                <label class="form-label">Area to Cover (approx. sq) <span
+                                        class="required">*</span></label>
+                                <input type="text" class="form-input" required id="areaToCover">
+                            </div>
+
+                            <!-- Options (4 Columns) -->
+                            <div class="form-row-4">
+                                <!-- Property Type -->
+                                <div class="form-group">
+                                    <label class="form-label">Property Type <span class="required">*</span></label>
+                                    <select class="form-input" required id="propertyType">
+                                        <option value="" disabled selected>Property</option>
+                                        <option value="residential">Residential</option>
+                                        <option value="commercial">Commercial</option>
+                                    </select>
+                                </div>
+
+                                <!-- Flooring Type -->
+                                <div class="form-group">
+                                    <label class="form-label">Flooring Type <span class="required">*</span></label>
+                                    <select class="form-input" required id="flooringType">
+                                        <option value="" disabled selected>Type</option>
+                                        <option value="hardwood">Hardwood</option>
+                                        <option value="laminate">Laminate</option>
+                                        <option value="vinyl">Vinyl/LVT</option>
+                                    </select>
+                                </div>
+
+                                <!-- When to Begin -->
+                                <div class="form-group">
+                                    <label class="form-label">When to Begin? <span class="required">*</span></label>
+                                    <select class="form-input" required id="whenToBegin">
+                                        <option value="" disabled selected>Timing</option>
+                                        <option value="nextWeek">Next week</option>
+                                        <option value="nextMonth">Next month</option>
+                                        <option value="stillDeciding">Still deciding</option>
+                                    </select>
+                                </div>
+
+                                <!-- Budget Range -->
+                                <div class="form-group">
+                                    <label class="form-label">Budget Range</label>
+                                    <select class="form-input" id="budgetRange">
+                                        <option value="" disabled selected>Budget</option>
+                                        <option value="under2500">Under $2,500</option>
+                                        <option value="under5000">Under $5,000</option>
+                                        <option value="under10000">Under $10,000</option>
+                                        <option value="under20000">Under $20,000</option>
+                                    </select>
+
+                                </div>
+                            </div>
+
+
+
+                            <div class="form-actions">
+                                <!-- Submit Button -->
+                                <button type="submit" class="form-submit">
+                                    <span>Get My Free Estimate</span>
+                                </button>
+
+                                <!-- Customer Reviews -->
+                                <div class="customer-reviews">
+                                    <div class="customer-avatars">
+                                        <img src="https://i.pravatar.cc/150?img=1" alt="Customer" class="avatar">
+                                        <img src="https://i.pravatar.cc/150?img=5" alt="Customer" class="avatar">
+                                        <img src="https://i.pravatar.cc/150?img=9" alt="Customer" class="avatar">
+                                    </div>
+                                    <div class="review-stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <p class="review-text">Over 200 happy customer and counting!</p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <!-- ==================== FEATURES SECTION ==================== -->
+    <section class="features section" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h1 class="section-titl">Why Homeowners Choose Alpha Flooring</h1>
+            </div>
+
+            <div class="features__grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3 class="feature-titl">5/5 ⭐ Google rating — <span class="text-highlight">trusted</span> by
+                        hundreds of families</h3>
+
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <h3 class="feature-titl">Clear, <span class="text-highlight">upfront pricing</span> — no hidden fees
+                    </h3>
+
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3 class="feature-titl"><span class="text-highlight">Real samples</span> brought directly to your
+                        home</h3>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== PROBLEM-SOLUTION SECTION ==================== -->
+    <section class="problem-solution section">
+        <div class="container">
+            <div class="problem-solution__content">
+                <h2 class="problem-solution__title">No More Worn-Out or Uneven Floors</h2>
+                <p class="problem-solution__problem">
+                    Are you tired of floors that start warping, cracking, or looking uneven just months after
+                    installation?
+                </p>
+                <p class="problem-solution__solution">
+                    We fix that problem by using high-quality materials and precise techniques that ensure durability
+                    and a flawless finish that lasts for years.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== PROBLEM-SOLUTION WITH IMAGE SECTION ==================== -->
+    <section class="problem-solution-image section">
+        <div class="container">
+            <div class="problem-solution-image__wrapper">
+
+                <div class="problem-solution-image__media">
+                    <img src="image/image.png" alt="Quality Flooring Installation" class="problem-solution-image__img">
+                </div>
+                <div class="problem-solution-image__content">
+                    <h1 class="problem-solution-image__title">Your Floors Shouldn’t Stress You Out . We Fix Everything.
+                    </h1>
+                    <p class="problem-solution-image__problem">
+                        If your floors are damaged, outdated, noisy, bubbling, lifting, or simply not matching your home
+                        anymore… you deserve a real solution, not another quick fix.
+
+                        At Alpha Flooring, we help Orlando homeowners replace or restore their floors with materials
+                        that last in Florida humidity, heat, and day-to-day life. No pushy sales tactics. No hidden
+                        fees. No low-quality installations. Just quality flooring, transparent pricing, and expert
+                        installers who treat your home like their own.
+
+                        If you want floors that look beautiful, last longer, and never bubble or warp again — you’re in
+                        the right place.
+                    </p>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== PROCESS SECTION ==================== -->
+    <section class="process section" id="process">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">The Real Advantage of Choosing Us
+                </h2>
+            </div>
+
+            <div class="process__grid">
+                <div class="process-step">
+                    <div class="step-number">⭐</div>
+                    <div class="step-content">
+                        <h2 class="step-title"><span class="text-highlight">Longevity</span></h2>
+                        <p class="step-description">
+                            Our goal isn’t to finish fast and disappear. We focus on long-term quality, durability, and
+                            customer loyalty.
+
+
+                        </p>
+                    </div>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-number">⭐</div>
+                    <div class="step-content">
+                        <h2 class="step-title"><span class="text-highlight">Transparency</span></h2>
+                        <p class="step-description">
+                            You’ll always understand what’s happening in your project. Pricing, timeline, materials,
+                            potential issues — everything is communicated clearly.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-number">⭐</div>
+                    <div class="step-content">
+                        <h2 class="step-title"><span class="text-highlight">Honesty</span></h2>
+                        <p class="step-description">
+                            From your first measurement to the final walkthrough, you’ll deal with people who simply
+                            tell the truth — always with your best interest in mind.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== DETAILED PROCESS SECTION ==================== -->
+    <section class="detailed-process section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Here's how it works...</h2>
+            </div>
+            <div class="detailed-process__grid">
+                <!-- Step 1 -->
+                <div class="detailed-step">
+                    <div class="detailed-step__image">
+                        <img src="image/imagecopy.png" alt="Send Room Details">
+                    </div>
+                    <div class="detailed-step__content">
+                        <span class="detailed-step__number">Step 01</span>
+                        <h3 class="detailed-step__title">Send Us Your <span class="text-highlight">Room Size</span> &
+                            Details</h3>
+                        <p class="detailed-step__description">
+                            Just share your approximate room measurements, the type of flooring you want, and any photos
+                            of the space. This helps us understand your project before the visit.
+                        </p>
+                    </div>
+                </div>
+                <!-- Step 2 -->
+                <div class="detailed-step">
+                    <div class="detailed-step__image">
+                        <img src="image/imagecopy2.png" alt="Get Estimate">
+                    </div>
+                    <div class="detailed-step__content">
+                        <span class="detailed-step__number">Step 02</span>
+                        <h3 class="detailed-step__title">Get Your <span class="text-highlight">Customized</span>
+                            Flooring Estimate</h3>
+                        <p class="detailed-step__description">
+                            Our team reviews your details and sends you a clear, honest estimate—no hidden fees, no
+                            surprises. You’ll know exactly what the project will cost before anything starts.
+                        </p>
+                    </div>
+                </div>
+                <!-- Step 3 -->
+                <div class="detailed-step">
+                    <div class="detailed-step__image">
+                        <img src="image/imagecopy3.png" alt="Professional Installation">
+                    </div>
+                    <div class="detailed-step__content">
+                        <span class="detailed-step__number">Step 03</span>
+                        <h3 class="detailed-step__title"><span class="text-highlight">Professional Installation</span>
+                            Scheduled & Completed</h3>
+                        <p class="detailed-step__description">
+                            Once you approve the estimate, we book your installation with our certified team. We handle
+                            everything: delivery, preparation, installation, cleanup, and final walkthrough.
+                            <br><br>You get durable, beautiful floors with a flawless finish.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== TESTIMONIAL HIGHLIGHT SECTION ==================== -->
+    <section class="testimonial-highlight section">
+        <div class="container">
+            <div class="testimonial-highlight__grid">
+                <div class="testimonial-highlight__left">
+                    <img src="image/thumbnail.png" alt="">
+                </div>
+                <div class="testimonial-highlight__right">
+                    <div class="testimonial-quote-icon">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <p class="testimonial-highlight__text">
+                        Our old floors were bubbling and lifting everywhere. Alpha Flooring explained exactly what was
+                        wrong and replaced everything in just a few days. The floors look amazing.
+                    </p>
+                    <div class="testimonial-highlight__rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="testimonial-highlight__author">
+                        <span class="author-name">brandon ellison</span>
+                        <span class="author-location">Orlando FL</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== REVIEW CARDS SECTION ==================== -->
+    <section class="review-cards section">
+        <div class="container">
+            <div class="review-cards__grid">
+                <!-- Card 1 -->
+                <div class="review-card">
+                    <p class="review-text">
+                        The transformation is unbelievable. Our floors went from dull and damaged to looking like a
+                        brand-new home. If you want quality work, these guys are the real deal.
+                    </p>
+                    <div class="review-divider"></div>
+                    <div class="review-footer">
+                        <div class="review-avatar">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Robert H.">
+                        </div>
+                        <div class="review-info">
+                            <div class="review-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <h4 class="review-author">Robert H.</h4>
+                            <span class="review-location">Lake Nona FL</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="review-card">
+                    <p class="review-text">
+                        Super professional from start to finish. They gave us a real quote, showed all the samples in
+                        our home, and the installation was flawless. Highly recommend.
+                    </p>
+                    <div class="review-divider"></div>
+                    <div class="review-footer">
+                        <div class="review-avatar">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Emily D.">
+                        </div>
+                        <div class="review-info">
+                            <div class="review-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <h4 class="review-author">Emily D.</h4>
+                            <span class="review-location">Winter Park FL</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="review-card">
+                    <p class="review-text">
+                        The transformation is unbelievable. Our floors went from dull and damaged to looking like a
+                        brand-new home. If you want quality work, these guys are the real deal."
+                    </p>
+                    <div class="review-divider"></div>
+                    <div class="review-footer">
+                        <div class="review-avatar">
+                            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Melissa G.">
+                        </div>
+                        <div class="review-info">
+                            <div class="review-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <h4 class="review-author">Melissa G.</h4>
+                            <span class="review-location">Orlando FL</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== TESTIMONIALS SECTION ==================== -->
+    <section class="testimonials section" id="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">What you'll get...
+                </h2>
+            </div>
+
+            <div class="testimonials__grid">
+                <!-- Card 1 -->
+                <div class="testimonial-card">
+                    <h2><span class="text-highlight">Free</span> In-Home or Virtual Estimate
+                    </h2>
+                    <p class="testimonial-text">
+                        We measure your space, answer questions, and help you choose the right flooring — no pressure,
+                        no fees.
+                    </p>
+
+                </div>
+
+                <!-- Card 2 -->
+                <div class="testimonial-card">
+                    <h2><span class="text-highlight">Real Flooring Samples</span> Brought to Your Home
+                    </h2>
+                    <p class="testimonial-text">
+                        See how each option looks with your lighting, walls, and furniture.
+                    </p>
+
+                </div>
+
+                <div class="testimonial-card">
+                    <h2><span class="text-highlight">Premium</span>, Florida-Proof Materials
+                    </h2>
+                    <p class="testimonial-text">
+                        High-quality LVP, tile, engineered hardwood, or laminate — all tested for humidity, moisture,
+                        and durability. </p>
+
+                </div>
+
+                <!-- Card 4 -->
+                <div class="testimonial-card">
+                    <h2><span class="text-highlight">Full Moisture</span> & Subfloor Inspection
+                    </h2>
+                    <p class="testimonial-text">
+                        We check for concrete moisture, uneven slabs, cracks, and conditions that could damage flooring
+                        later </p>
+
+                </div>
+
+                <!-- Card 5 -->
+                <div class="testimonial-card">
+                    <h2><span class="text-highlight">Professional</span>, Certified Installation Team
+
+                    </h2>
+                    <p class="testimonial-text">
+                        Experienced installers who follow correct procedures — no shortcuts, no cheap labor
+
+                    </p>
+
+                </div>
+
+                <!-- Card 6 -->
+                <div class="testimonial-card">
+                    <h2><span class="text-highlight">Proper</span> Underlayment & Adhesive System
+
+                    </h2>
+                    <p class="testimonial-text">
+                        We use the right materials for noise reduction, stability, and long-lasting results
+
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FAQ SECTION ==================== -->
+    <section class="faq section" id="faq">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <p class="section-subtitle">Answers to the most common questions</p>
+            </div>
+
+            <div class="faq__container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>What is the warranty period on flooring?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We provide a comprehensive warranty of up to 10 years on all installation work and materials
+                            used.
+
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How long does flooring installation take?
+                        </h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>It depends on the size of the area, but on average, installing a medium-sized room takes 1-2
+                            working days.
+
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Do you offer maintenance services?
+                        </h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, we provide regular maintenance services and comprehensive repair for all types of wood
+                            flooring.
+
+                            .</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>What payment methods are available?
+                        </h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We accept all payment methods: cash, bank transfer, credit cards, and flexible installment
+                            plans.
+
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CTA SECTION ==================== -->
+    <section class="cta section">
+        <div class="container">
+            <div class="cta__content">
+                <h2 class="cta__title">Ready To Get Started</h2>
+                <a href="#hero" class="cta__button">
+                    <span>Get Started</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <p>&copy; All rights reserved
+
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+
+    <script src="script.js"></script>
+</body>
+
+</html>
