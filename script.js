@@ -107,6 +107,7 @@ if (selectedTheme) {
     }
 }
 
+
 // Activate / deactivate the theme manually with the button
 if (themeButton) {
     themeButton.addEventListener('click', () => {
@@ -371,7 +372,7 @@ const observer = new IntersectionObserver((entries) => {
 }, observerOptions);
 
 // Observe elements
-const animateElements = document.querySelectorAll('.feature-card, .process-step, .testimonial-card, .faq-item');
+const animateElements = document.querySelectorAll('.feature-card, .process-step, .testimonial-card, .faq-item, .review-card');
 animateElements.forEach(el => {
     el.style.opacity = '0';
     observer.observe(el);
@@ -409,7 +410,39 @@ if (heroVideo) {
     document.addEventListener('click', enableSound, { once: true });
     document.addEventListener('touchstart', enableSound, { once: true });
 
-    // Pause video when scrolling past the hero section
+    // Video Autoplay/Pause Logic
+    let isUserPaused = false;
+    let isSystemPaused = false;
+
+    // Detect manual pause vs system pause
+    // We assume clicks on the video trigger pause/play.
+    // However, the 'pause' event fires for both.
+    // We can use the 'pointerdown' or 'click' event to set a flag, but native controls handle it internally.
+    // A robust way: If 'pause' fires and we are currently visible, it's likely a user action.
+    // If 'pause' fires and we are NOT visible (or the checkVideoVisibility function triggered it), it's a system action.
+    
+    // Better approach: We control the system pause.
+    // If WE call pause(), we set isSystemPaused = true.
+    // If the event fires and isSystemPaused is false, then it was the USER.
+
+    heroVideo.addEventListener('pause', () => {
+        if (!isSystemPaused) {
+            isUserPaused = true;
+            console.log("User manually paused the video.");
+        }
+        // Reset system pause flag for next time
+        isSystemPaused = false;
+    });
+
+    heroVideo.addEventListener('play', () => {
+        // If user plays it, we reset the user paused flag
+        if (!isSystemPaused) { // If we didn't trigger this play (we usually don't trigger play via system except resume)
+             isUserPaused = false;
+             console.log("User resumed the video.");
+        }
+        isSystemPaused = false;
+    });
+
     const heroSection = document.getElementById('hero');
     
     const checkVideoVisibility = () => {
@@ -418,11 +451,27 @@ if (heroVideo) {
             const isVisible = rect.bottom > 0 && rect.top < window.innerHeight;
             
             if (!isVisible && !heroVideo.paused) {
+                // System Pause
+                isSystemPaused = true; 
                 heroVideo.pause();
+                console.log("System paused video (scroll).");
             } else if (isVisible && heroVideo.paused) {
-                heroVideo.play().catch(() => {
-                    // Silently handle play errors
-                });
+                // System Resume - ONLY if user hasn't manually paused
+                if (!isUserPaused) {
+                    // We don't set isSystemPaused = true here because .play() triggers 'play' event
+                    // We need to differentiate system resume vs user play. 
+                    // But for 'play' event listener above, we just need to know if we should clear isUserPaused.
+                    // If we resume it, isUserPaused should remain... false?
+                    // Actually, if we resume it, it's NOT a user action, so we shouldn't accidentally set isUserPaused = false (it's already false).
+                    // So we are good.
+                    
+                    const playPromise = heroVideo.play();
+                    if (playPromise !== undefined) {
+                        playPromise.catch(error => {
+                            console.log("Auto-resume failed:", error);
+                        });
+                    }
+                }
             }
         }
     };
@@ -431,7 +480,7 @@ if (heroVideo) {
     window.addEventListener('scroll', checkVideoVisibility);
     
     // Check initially
-    // Check initially
+    checkVideoVisibility();
     checkVideoVisibility();
     
     // Poster Overlay Logic
