@@ -165,12 +165,7 @@ if (contactForm) {
             return;
         }
         
-        // Phone validation (basic)
-        const phoneRegex = /^[0-9]{10,}$/;
-        if (!phoneRegex.test(phone.replace(/[\s-]/g, ''))) {
-            showNotification(translations[currentLang].notifPhone, 'error');
-            return;
-        }
+        // Phone validation removed - accepts any format
         
         // Show loading state
         const submitButton = contactForm.querySelector('.form-submit');
@@ -180,7 +175,7 @@ if (contactForm) {
         submitButton.disabled = true;
         
         // Send data to Google Sheets
-        const googleSheetsURL = 'https://script.google.com/macros/s/AKfycbyGieD6rf1DQp6Xoq6GYeQT4hxyDJWAxbKU0omH5b0GXyKsnmDGxmT5JR96_PYZ5kTz/exec';
+        const googleSheetsURL = 'https://script.google.com/macros/s/AKfycbxAdmp4lIZgvnlNOR5PoQbdiC8rvKTFDgn7mfXC2v_ZSLf50ARWW14zZa7I3C7MkPy1jQ/exec';
         
         // Prepare form data
         const formData = {
@@ -207,15 +202,8 @@ if (contactForm) {
             body: JSON.stringify(formData)
         })
         .then(() => {
-            // Show success notification
-            showNotification('✓ Form submitted successfully! Data saved to Google Sheets.', 'success');
-            
-            // Reset form
-            contactForm.reset();
-            
-            // Reset button
-            submitButton.innerHTML = originalText;
-            submitButton.disabled = false;
+            // Redirect to thank you page
+            window.location.href = 'thank-you.html';
         })
         .catch(error => {
             console.error('Error:', error);
