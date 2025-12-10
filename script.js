@@ -145,6 +145,7 @@ if (contactForm) {
         const lastName = document.getElementById('lastName')?.value.trim() || '';
         const phone = document.getElementById('phone')?.value.trim() || '';
         const email = document.getElementById('email')?.value.trim() || '';
+        const city = document.getElementById('city')?.value.trim() || '';
         const areaToCover = document.getElementById('areaToCover')?.value.trim() || '';
         const propertyType = document.getElementById('propertyType')?.value || '';
         const flooringType = document.getElementById('flooringType')?.value || '';
@@ -153,11 +154,10 @@ if (contactForm) {
 
         
         // Basic validation
-        if (!firstName || !lastName || !phone || !email || !areaToCover || !propertyType || !flooringType || !whenToBegin) {
-            showNotification(translations[currentLang].notifRequired, 'error');
-            return;
-        }
-        
+      if (!firstName || !lastName || !phone || !email || !areaToCover || !city || !propertyType || !flooringType || !whenToBegin) {
+    showNotification(translations[currentLang].notifRequired, 'error');
+    return;
+}
         // Email validation
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
@@ -178,19 +178,20 @@ if (contactForm) {
         const googleSheetsURL = 'https://script.google.com/macros/s/AKfycbxAdmp4lIZgvnlNOR5PoQbdiC8rvKTFDgn7mfXC2v_ZSLf50ARWW14zZa7I3C7MkPy1jQ/exec';
         
         // Prepare form data
-        const formData = {
-            firstName: firstName,
-            lastName: lastName,
-            fullName: `${firstName} ${lastName}`,
-            phone: phone,
-            email: email,
-            city: areaToCover, // Mapping "Area to Cover" to "city" column as requested
-            propertyType: propertyType,
-            flooringType: flooringType,
-            whenToBegin: whenToBegin,
-            budgetRange: budgetRange,
-            message: '' // Message field removed from UI, sending empty string to maintain backend structure
-        };
+      const formData = {
+    firstName,
+    lastName,
+    fullName: `${firstName} ${lastName}`,
+    phone,
+    email,
+    city: city || areaToCover, // يفضّل City لو موجود، وإلا يستخدم Area to Cover كـ fallback
+    areaToCover: areaToCover,
+    propertyType,
+    flooringType,
+    whenToBegin,
+    budgetRange,
+    message: ''
+};
         
         // Send data to Google Sheets
         fetch(googleSheetsURL, {
@@ -517,158 +518,96 @@ if ('loading' in HTMLImageElement.prototype) {
 console.log('%c🎨 Premium Landing Page', 'color: #FF6B35; font-size: 20px; font-weight: bold;');
 console.log('%cDesigned with ❤️ for excellence', 'color: #6B6B7E; font-size: 14px;');
 
-/* ==================== REVIEWS CAROUSEL ==================== */
-const carousel = {
-    container: document.getElementById('reviewsCarousel'),
-    slides: null,
-    indicators: null,
-    currentSlide: 0,
-    totalSlides: 0,
-    autoPlayInterval: null,
-    autoPlayDelay: 5000, // 5 seconds
-    
-    init() {
-        if (!this.container) return;
-        
-        this.slides = this.container.querySelectorAll('.carousel-slide');
-        this.indicators = document.querySelectorAll('.indicator');
-        this.totalSlides = this.slides.length;
-        
-        if (this.totalSlides === 0) return;
-        
-        // Set up navigation
-        this.setupNavigation();
-        
-        // Set up indicators
-        this.setupIndicators();
-        
-        // Set up touch/swipe support
-        this.setupTouchSupport();
-        
-        // Start auto-play
-        this.startAutoPlay();
-        
-        // Pause on hover
-        this.setupHoverPause();
-    },
-    
-    setupNavigation() {
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        
-        if (prevBtn) {
-            prevBtn.addEventListener('click', () => {
-                this.prevSlide();
-                this.resetAutoPlay();
-            });
-        }
-        
-        if (nextBtn) {
-            nextBtn.addEventListener('click', () => {
-                this.nextSlide();
-                this.resetAutoPlay();
-            });
-        }
-    },
-    
-    setupIndicators() {
-        this.indicators.forEach((indicator, index) => {
-            indicator.addEventListener('click', () => {
-                this.goToSlide(index);
-                this.resetAutoPlay();
-            });
-        });
-    },
-    
-    setupTouchSupport() {
-        let touchStartX = 0;
-        let touchEndX = 0;
-        
-        this.container.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-        }, { passive: true });
-        
-        this.container.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            this.handleSwipe(touchStartX, touchEndX);
-        }, { passive: true });
-    },
-    
-    handleSwipe(startX, endX) {
+/* ==================== REVIEWS CAROUSEL (RESPONSIVE 1/2/3, PIXEL STEP) ==================== */
+function initReviewsCarousel() {
+    const track = document.querySelector('.reviews-track');
+    const prevBtn = document.getElementById('reviewsPrev');
+    const nextBtn = document.getElementById('reviewsNext');
+
+    if (!track || !prevBtn || !nextBtn) return;
+
+    const cards = Array.from(track.querySelectorAll('.carousel-review-card'));
+    let visibleCards = 3;
+    let currentIndex = 0;
+    let maxIndex = 0;
+    let cardWidth = 0;
+    let cardGap = 0;
+
+    function computeVisibleCards() {
+        const w = window.innerWidth || document.documentElement.clientWidth;
+        if (w <= 640) return 1;
+        if (w <= 992) return 2;
+        return 3;
+    }
+
+    function measure() {
+        if (!cards.length) return;
+        const rect = cards[0].getBoundingClientRect();
+        cardWidth = rect.width;
+        const styles = window.getComputedStyle(track);
+        const gapVal = styles.columnGap || styles.gap || '0px';
+        cardGap = parseFloat(gapVal) || 0;
+    }
+
+    function recalc() {
+        visibleCards = computeVisibleCards();
+        measure();
+        maxIndex = Math.max(cards.length - visibleCards, 0);
+        if (currentIndex > maxIndex) currentIndex = maxIndex;
+        updateCarousel();
+    }
+
+    function updateCarousel() {
+        const step = cardWidth + cardGap; // slide by exactly one card
+        const offset = step * currentIndex;
+        track.style.transform = `translateX(-${offset}px)`;
+    }
+
+    function goNext() {
+        if (cards.length <= visibleCards) return;
+        currentIndex = currentIndex >= maxIndex ? 0 : currentIndex + 1;
+        updateCarousel();
+    }
+
+    function goPrev() {
+        if (cards.length <= visibleCards) return;
+        currentIndex = currentIndex <= 0 ? maxIndex : currentIndex - 1;
+        updateCarousel();
+    }
+
+    nextBtn.addEventListener('click', goNext);
+    prevBtn.addEventListener('click', goPrev);
+
+    // Basic touch support on the whole reviews section
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    track.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    track.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        const diff = touchStartX - touchEndX;
         const swipeThreshold = 50;
-        const diff = startX - endX;
-        
         if (Math.abs(diff) > swipeThreshold) {
             if (diff > 0) {
-                // Swipe left - next slide
-                this.nextSlide();
+                goNext();
             } else {
-                // Swipe right - previous slide
-                this.prevSlide();
+                goPrev();
             }
-            this.resetAutoPlay();
         }
-    },
-    
-    setupHoverPause() {
-        const wrapper = document.querySelector('.carousel-wrapper');
-        if (wrapper) {
-            wrapper.addEventListener('mouseenter', () => {
-                this.stopAutoPlay();
-            });
-            
-            wrapper.addEventListener('mouseleave', () => {
-                this.startAutoPlay();
-            });
-        }
-    },
-    
-    goToSlide(index) {
-        // Remove active class from current slide and indicator
-        this.slides[this.currentSlide].classList.remove('active');
-        this.indicators[this.currentSlide].classList.remove('active');
-        
-        // Update current slide
-        this.currentSlide = index;
-        
-        // Add active class to new slide and indicator
-        this.slides[this.currentSlide].classList.add('active');
-        this.indicators[this.currentSlide].classList.add('active');
-    },
-    
-    nextSlide() {
-        const nextIndex = (this.currentSlide + 1) % this.totalSlides;
-        this.goToSlide(nextIndex);
-    },
-    
-    prevSlide() {
-        const prevIndex = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
-        this.goToSlide(prevIndex);
-    },
-    
-    startAutoPlay() {
-        this.stopAutoPlay(); // Clear any existing interval
-        this.autoPlayInterval = setInterval(() => {
-            this.nextSlide();
-        }, this.autoPlayDelay);
-    },
-    
-    stopAutoPlay() {
-        if (this.autoPlayInterval) {
-            clearInterval(this.autoPlayInterval);
-            this.autoPlayInterval = null;
-        }
-    },
-    
-    resetAutoPlay() {
-        this.stopAutoPlay();
-        this.startAutoPlay();
-    }
-};
+    }, { passive: true });
 
-// Initialize carousel when DOM is ready
+    // Recalc on resize to keep steps aligned with layout
+    window.addEventListener('resize', recalc);
+
+    // Initial setup
+    recalc();
+}
+
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => carousel.init());
+    document.addEventListener('DOMContentLoaded', initReviewsCarousel);
 } else {
-    carousel.init();
+    initReviewsCarousel();
 }

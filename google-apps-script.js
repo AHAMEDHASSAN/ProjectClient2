@@ -1,53 +1,65 @@
-// Google Apps Script Code
-// Copy this code to your Google Apps Script editor
-
 function doPost(e) {
   try {
     // Get the active spreadsheet
     var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
     
-    // Parse the incoming data
+    // Parse the incoming JSON data
     var data = JSON.parse(e.postData.contents);
     
-    // Get current date and time
-    var now = new Date();
-    var dateStr = Utilities.formatDate(now, Session.getScriptTimeZone(), "yyyy-MM-dd");
-    var timeStr = Utilities.formatDate(now, Session.getScriptTimeZone(), "HH:mm:ss");
+    // Check if headers exist, if not create them
+    if (sheet.getLastRow() === 0) {
+      sheet.appendRow([
+        'Timestamp',
+        'First Name',
+        'Last Name',
+        'Full Name',
+        'Phone',
+        'Email',
+        'City',
+        'Area to Cover', // Added Area to Cover
+        'Property Type',
+        'Flooring Type',
+        'When to Begin',
+        'Budget Range',
+        'Message'
+      ]);
+    }
     
-    // Prepare row data
-    var rowData = [
+    // Get current timestamp
+    var timestamp = new Date();
+    
+    // Append the data to the sheet
+    sheet.appendRow([
+      timestamp,
+      data.firstName || '',
+      data.lastName || '',
       data.fullName || '',
       data.phone || '',
       data.email || '',
       data.city || '',
+      data.areaToCover || '', // Added Area to Cover
       data.propertyType || '',
       data.flooringType || '',
       data.whenToBegin || '',
       data.budgetRange || '',
-      data.message || '',
-      timeStr,  // Time column
-      dateStr   // Date column
-    ];
-    
-    // Append the data to the sheet
-    sheet.appendRow(rowData);
+      data.message || ''
+    ]);
     
     // Return success response
     return ContentService.createTextOutput(JSON.stringify({
-      'status': 'success',
+      'result': 'success',
       'message': 'Data saved successfully'
     })).setMimeType(ContentService.MimeType.JSON);
     
   } catch (error) {
     // Return error response
     return ContentService.createTextOutput(JSON.stringify({
-      'status': 'error',
+      'result': 'error',
       'message': error.toString()
     })).setMimeType(ContentService.MimeType.JSON);
   }
 }
 
-// Test function (optional)
 function doGet(e) {
-  return ContentService.createTextOutput("Form handler is working!");
+  return ContentService.createTextOutput('Google Apps Script is running!');
 }
