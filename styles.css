@@ -376,7 +376,7 @@ select {
     display: flex;
     padding-top: calc(80px + var(--spacing-xl));
     padding-bottom: var(--spacing-xxl);
-    background: linear-gradient(to bottom, var(--section-bg-1) 0%, var(--section-bg-2) 100%);
+    background: #FAF8F3;
     transition: background 0.3s ease;
 }
 
@@ -875,7 +875,7 @@ body:not(.dark-theme) .form-input option {
 
 /* ==================== FEATURES SECTION ==================== */
 .features {
-    background: var(--section-bg-2);
+    background: #FAF8F3;
     transition: background 0.3s ease;
 }
 
@@ -933,7 +933,7 @@ body:not(.dark-theme) .form-input option {
 
 /* ==================== PROCESS SECTION ==================== */
 .process {
-    background: linear-gradient(to bottom, var(--section-bg-1) 0%, var(--section-bg-2) 100%);
+    background: #FAF8F3;
     transition: background 0.3s ease;
 }
 
@@ -1017,7 +1017,7 @@ body:not(.dark-theme) .form-input option {
 
 /* ==================== PROBLEM-SOLUTION WITH IMAGE SECTION ==================== */
 .problem-solution-image {
-    background: var(--section-bg-1);
+    background: #FFFFFF;
     transition: background 0.3s ease;
     padding: var(--spacing-xxl) 0;
     padding-bottom: 100px;
@@ -1090,7 +1090,7 @@ body:not(.dark-theme) .form-input option {
 
 /* ==================== DETAILED PROCESS SECTION ==================== */
 .detailed-process {
-    background: var(--section-bg-1);
+    background: #FFFFFF;
     transition: background 0.3s ease;
 }
 
@@ -1165,8 +1165,9 @@ body:not(.dark-theme) .form-input option {
 
 /* ==================== TESTIMONIAL HIGHLIGHT SECTION ==================== */
 .testimonial-highlight {
-    background: var(--section-bg-2);
+    background: #FAF8F3;
     padding: var(--spacing-xxl) 0;
+    margin-bottom: var(--spacing-xxl);
     color: var(--text-color);
     transition: background 0.3s ease;
 }
@@ -1261,97 +1262,189 @@ body:not(.dark-theme) .form-input option {
     opacity: 0.7;
 }
 
-/* ==================== REVIEW CARDS SECTION ==================== */
-.review-cards {
-    background: var(--section-bg-1);
+/* ==================== REVIEWS CAROUSEL SECTION ==================== */
+.reviews-carousel {
+    background: #FFFFFF;
     padding: var(--spacing-xxl) 0;
     transition: background 0.3s ease;
+    overflow: hidden;
 }
 
-.review-cards__grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--spacing-xl);
+.carousel-wrapper {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 60px;
 }
 
-.review-card {
+.carousel-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-xl);
+}
+
+.carousel-slide {
+    display: none;
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+.carousel-slide.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.carousel-review-card {
     background: var(--card-bg);
-    padding: var(--spacing-xl) var(--spacing-xl) 0.5rem;
-    border-radius: var(--radius-lg);
-    box-shadow: var(--card-shadow);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
     box-shadow: var(--card-shadow);
     border: 2px solid var(--card-border);
-    display: flex;
-    flex-direction: column;
-    transition: var(--transition-base);
+    transition: all 0.4s ease;
 }
 
-.review-card:hover {
-    transform: translateY(-4px);
+.carousel-review-card:hover {
+    transform: translateY(-8px);
     box-shadow: var(--card-shadow-hover);
 }
 
-.review-text {
-    font-size: var(--font-size-md);
-    line-height: 1.6;
-    color: var(--text-color);
-    margin-bottom: 0;
-    flex-grow: 1;
-}
-
-.review-divider {
-    height: 1px;
-    background-color: var(--card-border);
-    margin-bottom: var(--spacing-lg);
-}
-
-.review-footer {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-md);
-}
-
-.review-avatar {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
+.carousel-review-image {
+    width: 100%;
+    height: 250px;
     overflow: hidden;
-    flex-shrink: 0;
+    position: relative;
 }
 
-.review-avatar img {
+.carousel-review-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center;
+    transition: transform 0.5s ease;
 }
 
-.review-info {
+.carousel-review-card:hover .carousel-review-image img {
+    transform: scale(1.05);
+}
+
+.carousel-review-content {
+    padding: var(--spacing-md);
+    text-align: center;
+}
+
+.carousel-review-stars {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: var(--spacing-md);
 }
 
-.review-rating {
+.carousel-review-stars i {
     color: var(--accent-color);
-    font-size: var(--font-size-sm);
-    margin-bottom: 4px;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
 }
 
-.review-author {
-    font-size: var(--font-size-base);
-    font-weight: 700;
-    color: var(--title-color);
+.carousel-review-stars i:hover {
+    transform: scale(1.2) rotate(15deg);
+}
+
+.carousel-review-text {
+    font-size: var(--font-size-md);
+    line-height: 1.8;
+    color: var(--text-color);
+    font-style: italic;
     margin: 0;
 }
 
-.review-location {
-    font-size: var(--font-size-sm);
-    color: var(--text-color);
-    opacity: 0.7;
+/* Navigation Arrows */
+.carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--card-bg);
+    border: 2px solid var(--card-border);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+    box-shadow: var(--shadow-md);
+}
+
+.carousel-arrow:hover {
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: var(--shadow-lg);
+}
+
+.carousel-arrow i {
+    font-size: 1.25rem;
+    color: var(--title-color);
+    transition: color 0.3s ease;
+}
+
+.carousel-arrow:hover i {
+    color: #000000;
+}
+
+.carousel-arrow-left {
+    left: 0;
+}
+
+.carousel-arrow-right {
+    right: 0;
+}
+
+/* Carousel Indicators */
+.carousel-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: var(--spacing-lg);
+}
+
+.indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--input-border);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.indicator:hover {
+    background: var(--text-light);
+    transform: scale(1.2);
+}
+
+.indicator.active {
+    background: var(--accent-color);
+    width: 40px;
+    border-radius: 6px;
+    border-color: var(--accent-color);
 }
 
 /* ==================== TESTIMONIALS SECTION ==================== */
 .testimonials {
-    background: var(--section-bg-2);
+    background: #FFFFFF;
+    margin-bottom: var(--spacing-xxl);
     transition: background 0.3s ease;
 }
 
@@ -1414,7 +1507,7 @@ body:not(.dark-theme) .form-input option {
 
 /* ==================== FAQ SECTION ==================== */
 .faq {
-    background: linear-gradient(to bottom, var(--section-bg-1) 0%, var(--section-bg-2) 100%);
+    background: #FAF8F3;
     transition: background 0.3s ease;
 }
 
@@ -1912,6 +2005,32 @@ body:not(.dark-theme) .form-input option {
         grid-template-columns: 1fr !important;
         gap: var(--spacing-md);
         height: auto !important;
+    }
+
+    /* Carousel Responsive Styles */
+    .carousel-wrapper {
+        padding: 0 50px;
+    }
+
+    .carousel-review-image {
+        height: 300px;
+    }
+
+    .carousel-review-content {
+        padding: var(--spacing-md);
+    }
+
+    .carousel-review-text {
+        font-size: var(--font-size-base);
+    }
+
+    .carousel-arrow {
+        width: 40px;
+        height: 40px;
+    }
+
+    .carousel-arrow i {
+        font-size: 1rem;
     }
 
     .detailed-step {
