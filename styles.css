@@ -68,10 +68,10 @@
 /* Light Theme Variables (Default) */
 body.light-theme,
 body {
-    --body-bg: #F5F1E8;
+    --body-bg: #FFFFFF;
     --body-color: #000000;
     --section-bg-1: #F5F1E8;
-    --section-bg-2: #FAF8F3;
+    --section-bg-2: #FFFFFF;
     --card-bg: #FFFFFF;
     --card-bg: #FFFFFF;
     --card-border: #000000;
@@ -1518,6 +1518,7 @@ body:not(.dark-theme) .form-input option {
 .faq {
     background: var(--section-bg-1);
     transition: background 0.3s ease;
+    margin-bottom: 0;
 }
 
 .faq__container {
