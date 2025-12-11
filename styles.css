@@ -68,7 +68,7 @@
 /* Light Theme Variables (Default) */
 body.light-theme,
 body {
-    --body-bg: #FAF8F3;
+    --body-bg: #F5F1E8;
     --body-color: #000000;
     --section-bg-1: #F5F1E8;
     --section-bg-2: #FAF8F3;
@@ -177,6 +177,25 @@ select {
 
 .section {
     padding: var(--spacing-xxl) 0;
+    margin-bottom: var(--spacing-xl);
+}
+
+/* Alternating Section Backgrounds */
+.section:nth-of-type(odd) {
+    background-color: var(--bg-white);
+}
+
+.section:nth-of-type(even) {
+    background-color: var(--section-bg-1);
+}
+
+/* Dark theme alternating backgrounds */
+body.dark-theme .section:nth-of-type(odd) {
+    background-color: var(--section-bg-2);
+}
+
+body.dark-theme .section:nth-of-type(even) {
+    background-color: var(--section-bg-1);
 }
 
 .section-header {
@@ -982,7 +1001,7 @@ body:not(.dark-theme) .form-input option {
 
 /* ==================== PROBLEM-SOLUTION SECTION ==================== */
 .problem-solution {
-    background: #000000;
+    background: #000000 !important;
     padding: var(--spacing-xxl) 0;
     text-align: center;
 }
@@ -1567,8 +1586,9 @@ body:not(.dark-theme) .form-input option {
 
 /* ==================== CTA SECTION ==================== */
 .cta {
-    background: #000000;
+    background: #000000 !important;
     padding: var(--spacing-xxl) 0;
+    margin-bottom: 0 !important;
 }
 
 .cta__content {
@@ -1620,7 +1640,7 @@ body:not(.dark-theme) .form-input option {
 
 /* ==================== FOOTER ==================== */
 .footer {
-    background: var(--bg-dark);
+    background: #000000 !important;
     padding: var(--spacing-lg) 0;
 }
 
